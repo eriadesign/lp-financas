@@ -100,8 +100,8 @@
   box-shadow: var(--shadow-lg);
   padding: 12px 14px;
 }
-.float-card.goal { bottom: -18px; left: -26px; width: 208px; }
-.float-card.alert { bottom: -18px; right: -22px; width: 168px; }
+.float-card.goal { bottom: -18px; left: -26px; width: 286px; padding: 14px 16px; }
+.float-card.alert { bottom: -18px; right: -22px; width: 280px; padding: 2px 16px; }
 
 .hero-dash-frame { max-width: 720px; margin-inline: auto; }
 
