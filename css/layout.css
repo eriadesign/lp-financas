@@ -100,10 +100,38 @@
   box-shadow: var(--shadow-lg);
   padding: 12px 14px;
 }
-.float-card.goal { bottom: -18px; left: -26px; width: 208px; }
-.float-card.alert { bottom: -18px; right: -22px; width: 168px; }
+.float-card.goal { bottom: -18px; left: -26px; width: 286px; padding: 14px 16px; }
+.float-card.alert { bottom: -18px; right: -22px; width: 280px; padding: 2px 16px; }
 
 .hero-dash-frame { max-width: 720px; margin-inline: auto; }
+
+/* Camadas do hero: o dashboard entra primeiro e os cards flutuantes chegam em
+   seguida, cada um em uma profundidade. Depois, os cards seguem flutuando e o
+   mouse desloca cada camada numa intensidade (js/main.js). As animações de
+   entrada usam fill-mode backwards para devolver o transform ao tilt do JS. */
+.hero-visual.is-visible .frame { animation: hero-layer-base 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards; }
+/* A flutuação usa `translate`, que se soma ao `transform` do parallax. */
+.hero-visual.is-visible .float-card.goal {
+  animation: hero-layer-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s backwards, hero-layer-bob 6s ease-in-out 1.4s infinite;
+}
+.hero-visual.is-visible .float-card.alert {
+  animation: hero-layer-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s backwards, hero-layer-bob 7s ease-in-out 2s infinite;
+}
+
+@keyframes hero-layer-base {
+  from { opacity: 0; transform: rotate(0.4deg) rotateX(14deg) translateY(28px) scale(0.96); }
+}
+@keyframes hero-layer-in {
+  from { opacity: 0; transform: translate3d(0, 36px, 0) scale(0.92); }
+}
+@keyframes hero-layer-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual.is-visible .frame, .hero-visual.is-visible .float-card { animation: none; }
+}
 
 @media (max-width: 980px) {
   .hero-top { grid-template-columns: 1fr; }
@@ -143,9 +171,17 @@
 
 @media (max-width: 900px) {
   .tour { grid-template-columns: 1fr; }
-  .tour-tabs { flex-direction: row; overflow-x: auto; position: static; gap: 8px; padding-bottom: 6px; }
-  .tour-tab { flex-shrink: 0; padding: 10px 14px; }
+  /* Todas as abas visíveis, quebrando em linhas como tags (sem scroll lateral) */
+  .tour-tabs { flex-direction: row; flex-wrap: wrap; justify-content: center; position: static; gap: 6px; }
+  .tour-tab {
+    padding: 7px 12px; border-radius: 999px;
+    border-color: hsl(var(--border)); background: hsl(var(--card));
+  }
+  .tour-tab .t1 { font-size: 13px; white-space: nowrap; }
+  .tour-tab .dot { display: none; }
   .tour-tab .t2 { display: none !important; }
+  .tour-tab.active { background: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+  .tour-tab.active .t1 { color: #18181b; }
 }
 
 /* ---------- Prova social ---------- */
@@ -218,15 +254,15 @@
 .band-dark .eyebrow::before { background: #efbf4e; }
 
 /* ---------- Mural de depoimentos (bento) ---------- */
+/* Mural em colunas (masonry): cada card tem a altura do próprio conteúdo. */
 .testi-wall {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-  grid-auto-flow: dense;
-  gap: 16px;
+  column-count: 3;
+  column-gap: 16px;
 }
 .testi-card {
-  padding: 22px;
+  padding: 24px;
+  margin-bottom: 16px;
+  break-inside: avoid;
   border-radius: 14px;
   background: #141414;
   border: 1px solid hsl(0 0% 100% / 0.08);
@@ -236,8 +272,6 @@
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .testi-card:hover { border-color: hsl(0 0% 100% / 0.2); transform: translateY(-2px); }
-.testi-card.tspan-row { grid-row: span 2; }
-.testi-card.tspan-col { grid-column: span 2; }
 .testi-card .testi-badge {
   position: absolute; top: 18px; right: 18px;
   width: 18px; height: 11px; opacity: 0.5;
@@ -245,7 +279,7 @@
 .testi-card .stars { color: #efbf4e; font-size: 12px; letter-spacing: 2px; margin-bottom: 12px; }
 .testi-card .headline { font-family: var(--font-ui); font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 8px; padding-right: 24px; }
 .testi-card p.body { font-size: 13.5px; line-height: 1.6; color: hsl(0 0% 100% / 0.72); }
-.testi-card .who { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 16px; }
+.testi-card .who { display: flex; align-items: center; gap: 10px; padding-top: 18px; }
 .testi-card .avatar {
   width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
@@ -255,12 +289,10 @@
 .testi-card .role { font-size: 11px; color: hsl(0 0% 100% / 0.45); }
 
 @media (max-width: 860px) {
-  .testi-wall { grid-template-columns: repeat(2, 1fr); }
-  .testi-card.tspan-col { grid-column: span 2; }
+  .testi-wall { column-count: 2; }
 }
 @media (max-width: 560px) {
-  .testi-wall { grid-template-columns: 1fr; }
-  .testi-card.tspan-row, .testi-card.tspan-col { grid-row: auto; grid-column: auto; }
+  .testi-wall { column-count: 1; }
 }
 
 /* Footer: ver css/footer-escola.css (réplica exata do footer de lp-auvp-escola-prod) */

@@ -36,13 +36,37 @@ para um projeto com componentes reais do produto.
 ```
 index.html
 css/
-  tokens.css    → design tokens (cores, tipografia, radius, sombras)
+  tokens.css    → design tokens da LP (cores, tipografia, radius, sombras)
   base.css      → reset, tipografia, botões, cards, utilitários
-  mockups.css   → componentes de "produto real" (dashboard, transações, metas, etc.)
+  mockups.css   → moldura de navegador (.frame) e a dobra "espalhado" (.scatter)
+  app-ui.css    → réplica dos componentes do app Minhas Finanças (escopo .app)
   layout.css    → header, hero, storytelling, features, tour, prova social, footer
 js/
-  main.js       → scroll reveal, tabs do tour de produto, menu mobile
+  main.js       → encaixe das réplicas (zoom), scroll reveal, tabs do tour, menu mobile
 ```
+
+## Réplicas do app
+
+Todas as telas de produto da LP (Home, Contas, Cartões, Transações, Orçamento,
+Visualização de uso, Nova conta, Lançamento manual, estados vazios) são réplicas em
+HTML/CSS dos componentes do app `financeiro-master`, com os tokens do tema claro dele
+(`app/globals.css`) e as medidas das classes Tailwind originais. O cabeçalho de
+`css/app-ui.css` mapeia cada bloco ao componente de origem.
+
+Cada réplica é montada no tamanho real do app dentro de um `.app-fit` e reduzida por
+`zoom`, como uma captura de tela:
+
+```html
+<div class="app-fit" data-w="1000,720" data-h="720,1040">
+  <div class="app">…</div>
+</div>
+```
+
+- `data-w`: larguras de projeto, da maior para a menor. Vale a primeira que caiba com
+  zoom ≥ 0,5; a última liga a variante `.compact` (sem sidebar, grades em uma coluna).
+- `data-h` (opcional): altura de recorte para cada largura.
+
+Ao mudar um componente no app, atualize a classe `a-*` correspondente em `app-ui.css`.
 
 ## Rodando localmente
 
@@ -53,9 +77,6 @@ python3 -m http.server 8000
 
 ## Próximos passos sugeridos
 
-- Substituir os mockups de UI por capturas reais do produto (com dados fictícios) assim que
-  existirem telas de produção — a estrutura de componentes em `mockups.css` já reflete os
-  contêineres esperados (frame de navegador, app shell, cards).
 - Integrar formulário de cadastro/login com o backend real (CTAs `#comecar` / `#login`).
 - Validar copy e números de prova social (depoimentos, estatísticas) com dados reais antes do
   lançamento — os atuais são placeholders ilustrativos.

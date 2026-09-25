@@ -1,12 +1,17 @@
 /* ==========================================================================
    Bento grid — réplica da terceira dobra do copilot.money ("Everything you
    need, all in one app"), contextualizada com o Minhas Finanças.
+   Todos os tiles têm a mesma anatomia: área visual de largura total (réplica
+   do app centrada, com o mesmo respiro nos quatro lados) e, abaixo, o texto
+   com o mesmo recuo horizontal da réplica.
    ========================================================================== */
 
 .bento-grid {
+  --bento-pad: 24px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 190px;
+  /* Altura mínima por linha, mas cresce com o conteúdo: nada é recortado. */
+  grid-auto-rows: minmax(190px, auto);
   gap: 20px;
 }
 
@@ -29,67 +34,33 @@
 .tile-large { grid-column: span 2; grid-row: span 2; }
 .tile-goals { grid-column: 3; grid-row: 1; }
 .tile-categorize { grid-column: 3; grid-row: 2; }
-.tile-simple { grid-row: 3; padding: 22px; justify-content: flex-start; }
+.tile-simple { grid-row: 3; }
 
 .bento-visual {
   flex: 1;
-  padding: 18px 18px 0;
-  background: linear-gradient(180deg, hsl(var(--muted) / 0.7), hsl(var(--muted) / 0.15));
-  position: relative;
-  overflow: hidden;
+  padding: var(--bento-pad);
+  background: hsl(var(--muted) / 0.45);
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
-}
-.bento-visual::after {
-  content: '';
-  position: absolute; left: 0; right: 0; bottom: 0; height: 36px;
-  background: linear-gradient(180deg, transparent, hsl(var(--card)));
-  pointer-events: none;
-}
-.bento-visual .account-row {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  border-radius: 10px;
-  padding: 9px 11px;
-  margin: 0;
-}
-.tile-goals .bento-visual, .tile-categorize .bento-visual { padding: 16px; }
-
-.bento-text { padding: 18px 20px 20px; }
-.bento-text h4, .tile-simple h4 { font-family: var(--font-ui); font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-.bento-text p, .tile-simple p { font-size: 13px; color: hsl(var(--muted-foreground)); line-height: 1.55; }
-
-.tile-simple .ic {
-  width: 38px; height: 38px; border-radius: 10px;
-  background: hsl(var(--primary) / 0.16);
-  color: hsl(var(--primary-emphasis));
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
 }
 
-.goal-card.mini { border: none; padding: 0; }
-.tx-row.mini { border: 1px solid hsl(var(--border)); border-radius: 10px; padding: 10px; background: hsl(var(--card)); }
-.mini-bars .bars { height: 84px; }
-.tile-simple .bento-visual {
-  flex: none;
-  padding: 14px; border-radius: 10px; margin-bottom: 16px;
-  background: hsl(var(--muted) / 0.6);
-}
-.tile-simple .bento-visual::after { display: none; }
-.tile-simple .mini-form .form-field { margin-bottom: 10px; }
-.tile-simple .mini-form .form-input { padding: 8px 10px; font-size: 12px; }
-.tile-simple .mini-form .chip-select .chip { font-size: 10.5px; padding: 5px 10px; }
+.bento-text { padding: 20px var(--bento-pad) var(--bento-pad); }
+.bento-text h4 { font-family: var(--font-ui); font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.bento-text p { font-size: 13px; color: hsl(var(--muted-foreground)); line-height: 1.55; }
 
 @media (max-width: 900px) {
-  .bento-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
-  .tile-large { grid-column: span 2; }
+  .bento-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+  .tile-large { grid-column: span 2; grid-row: auto; }
   .tile-goals, .tile-categorize { grid-column: span 1; grid-row: auto; }
   .tile-simple { grid-row: auto; }
+  /* 3 tiles simples em 2 colunas: o último ocupa a linha inteira */
+  .tile-simple:last-child { grid-column: span 2; }
+  /* Tile em linha inteira: a réplica não passa do tamanho de um tile comum */
+  .tile-simple:last-child .app-fit { max-width: 400px; margin-inline: auto; }
 }
 @media (max-width: 620px) {
-  .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
-  .tile-large, .tile-goals, .tile-categorize, .tile-simple { grid-column: auto; grid-row: auto; }
-  .tile-large .bento-visual, .tile-goals .bento-visual, .tile-categorize .bento-visual { min-height: 160px; }
+  .bento-grid { --bento-pad: 20px; grid-template-columns: 1fr; gap: 16px; }
+  .tile-large, .tile-goals, .tile-categorize, .tile-simple, .tile-simple:last-child { grid-column: auto; grid-row: auto; }
 }
