@@ -51,6 +51,7 @@
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
   <symbol id="i-ellipsis-vertical" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
   <symbol id="i-link-2" viewBox="0 0 24 24"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></symbol>
@@ -116,7 +117,7 @@
           </div>
           <div class="frame-body tight">
             <!-- Réplica da Home do app: GlobalHeader + Sidebar + DashboardContent -->
-            <div class="app-fit" data-w="1000,720" data-h="720,1040">
+            <div class="app-fit" data-w="1000,720" data-h="720,975">
               <div class="app app-crop">
                 <header class="a-header">
                   <span class="a-logo" aria-hidden="true"></span>
@@ -263,7 +264,7 @@
         </div>
 
         <!-- Trilho de meta (FinancialGoals da Home) -->
-        <div class="float-card goal">
+        <div class="float-card goal" data-depth="28">
           <div class="app a-float">
             <div class="a-rail" style="--rail:#007BFF">
               <div class="a-rail-top"><span class="dot"></span><span>Custos Fixos</span><span class="g">30%</span><span class="u">91,88%</span></div>
@@ -273,9 +274,9 @@
           </div>
         </div>
         <!-- Linha de "Transações recentes" -->
-        <div class="float-card alert">
+        <div class="float-card alert" data-depth="-40">
           <div class="app a-float">
-            <div class="a-recent-row">
+            <div class="a-recent-row" style="border:0;padding:10px 0">
               <span class="dot" style="background:#007BFF"></span>
               <div class="tx"><b>Supermercado Bom Preço</b><span>hoje · Nubank · Custos Fixos</span></div>
               <span class="amt neg">-R$ 284,90</span>
@@ -395,7 +396,7 @@
               <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">financas.auvp.com.br/settings/profile?tab=metas</span></div>
               <div class="frame-body tight">
                 <!-- Réplica do PercentageUsedPieChart ("Visualização de uso") -->
-                <div class="app-fit" data-w="720">
+                <div class="app-fit" data-w="720,400">
                   <div class="app app-page">
                     <div class="a-card">
                       <div class="a-card-head" style="padding:24px 24px 8px"><h3 class="a-title-xl">Visualização de uso</h3></div>
@@ -427,7 +428,7 @@
               <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">financas.auvp.com.br/dashboard/transactions</span></div>
               <div class="frame-body tight">
                 <!-- Réplica de /dashboard/transactions na visão agrupada por dia (table-transactions.tsx) -->
-                <div class="app-fit" data-w="920">
+                <div class="app-fit" data-w="920,480">
                   <div class="app app-page">
                     <div class="a-tabs"><span class="on">Histórico</span><span>Recorrência</span></div>
                     <div class="a-toolbar">
@@ -518,7 +519,7 @@
               <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">financas.auvp.com.br/dashboard/budget</span></div>
               <div class="frame-body tight">
                 <!-- Réplica dos cards de meta do Orçamento (budget-goal-card.tsx) -->
-                <div class="app-fit" data-w="720">
+                <div class="app-fit" data-w="720,400">
                   <div class="app app-page">
                     <div class="a-goals">
                       <div class="a-card a-goal">
@@ -591,7 +592,7 @@
     <div class="bento-grid" data-reveal>
       <div class="bento-tile tile-large">
         <div class="bento-visual">
-          <div class="app-fit" data-w="640">
+          <div class="app-fit" data-w="760,400">
             <div class="app a-bento">
               <ul class="a-accounts" style="grid-template-columns:1fr 1fr">
                 <li class="a-bank">
@@ -605,7 +606,12 @@
                   <div class="a-bank-foot">Sincronizada em 22/09/2026 09:06</div>
                 </li>
               </ul>
-              <div class="a-sync-stack" style="margin:14px 0 0 auto">
+              <div class="a-bento-syncs">
+                <div class="a-sync success">
+                  <svg class="ic ok"><use href="#i-circle-check"/></svg>
+                  <span class="logo" style="background:#FF7A00;color:#000">IN</span>
+                  <div class="txt"><b>Conta sincronizada</b><span>Banco Inter</span></div>
+                </div>
                 <div class="a-sync">
                   <svg class="ic spin"><use href="#i-loader-circle"/></svg>
                   <span class="logo" style="background:#0A6BB0">CA</span>
@@ -666,8 +672,7 @@
             </div>
           </div>
         </div>
-        <h4>Cadastro manual flexível</h4>
-        <p>Conta que não conecta, dinheiro em espécie, empréstimo entre amigos: registre do seu jeito.</p>
+        <div class="bento-text"><h4>Cadastro manual flexível</h4><p>Conta que não conecta, dinheiro em espécie, empréstimo entre amigos: registre do seu jeito.</p></div>
       </div>
 
       <div class="bento-tile tile-simple">
@@ -683,14 +688,25 @@
             </div>
           </div>
         </div>
-        <h4>Receitas x despesas, claras</h4>
-        <p>Veja se está sobrando ou faltando, sem somar nada na cabeça.</p>
+        <div class="bento-text"><h4>Receitas x despesas, claras</h4><p>Veja se está sobrando ou faltando, sem somar nada na cabeça.</p></div>
       </div>
 
       <div class="bento-tile tile-simple">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg></div>
-        <h4>Privacidade por padrão</h4>
-        <p>Open Finance regulado pelo Banco Central e dados criptografados.</p>
+        <div class="bento-visual mini-secure">
+          <!-- Réplica do bloco "Segurança Garantida" (onboarding-dialog.tsx) -->
+          <div class="app-fit" data-w="360">
+            <div class="app a-bento">
+              <div class="a-secure">
+                <h4><svg class="ic"><use href="#i-shield"/></svg>Segurança Garantida</h4>
+                <ul>
+                  <li>• Regulamentado pelo Banco Central do Brasil</li>
+                  <li>• Seus dados são criptografados e protegidos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bento-text"><h4>Privacidade por padrão</h4><p>Você revoga o acesso quando quiser, e suas senhas nunca são compartilhadas.</p></div>
       </div>
     </div>
   </div>
@@ -741,7 +757,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Contas · Nova conta</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="980,620">
+              <div class="app-fit" data-w="980,620" data-h="540,0">
                 <div class="app a-connect">
                   <div class="app-page">
                     <div class="a-page-head">
@@ -794,9 +810,9 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Transações · Lançamento manual</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="620">
-                <div class="app app-page" style="background:#f2f2f2">
-                  <div class="a-dialog" style="width:auto">
+              <div class="app-fit" data-w="1100,620" data-h="606,0">
+                <div class="app app-page a-modal-stage" style="background:#f2f2f2">
+                  <div class="a-dialog">
                     <span class="a-dialog-x"><svg class="ic"><use href="#i-x"/></svg></span>
                     <h2 style="font-size:18px;line-height:1;font-weight:600">Lançamento manual</h2>
                     <div class="a-form">
@@ -840,7 +856,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Contas · Cartões</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="800,420">
+              <div class="app-fit" data-w="800,420" data-h="441,0">
                 <div class="app app-page">
                   <div class="a-sec-title"><svg class="ic"><use href="#i-credit-card"/></svg><h3>Cartões</h3><span>(2)</span></div>
                   <ul class="a-cards">
@@ -880,7 +896,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Transações · Definir meta</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="900">
+              <div class="app-fit" data-w="900" data-h="496">
                 <div class="app app-page" style="min-height:440px">
                   <div class="a-table" style="overflow:visible">
                     <div class="a-tr head">
@@ -930,7 +946,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Início · Histórico Financeiro</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="820,520">
+              <div class="app-fit" data-w="940,520" data-h="518,0">
                 <div class="app app-page">
                   <div class="a-card">
                     <div class="a-hist-head">
@@ -964,7 +980,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Orçamento · setembro 2026</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="980,520">
+              <div class="app-fit" data-w="820,520" data-h="452,0">
                 <div class="app app-page">
                   <div class="a-goals c3">
                     <div class="a-card a-goal">
@@ -1015,7 +1031,7 @@
           <div class="frame">
             <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="frame-title">Contas · primeiro acesso</span></div>
             <div class="frame-body tight">
-              <div class="app-fit" data-w="820,520">
+              <div class="app-fit" data-w="820,520" data-h="452,0">
                 <div class="app app-page">
                   <div class="a-page-head">
                     <div><h1>Contas</h1><p class="sub">Gerencie suas contas bancárias e cartões.</p></div>
@@ -1056,16 +1072,11 @@
       <h2>De "não sei onde meu dinheiro vai" para "eu vejo tudo".</h2>
     </div>
     <div class="testi-wall" data-reveal>
-      <div class="testi-card tspan-row">
+      <div class="testi-card">
         <img src="assets/olho-amarelo.svg" alt="" class="testi-badge">
         <div class="stars">★★★★★</div>
         <p class="body">"O novo "Minhas Finanças" tá de fato muito bom, a integração com o MCP foi uma virada de chave. Facilita muito as categorizações, era muito moroso categorizar tudo manualmente todo mês. Agora já deixei o ano todo ajustado. Inclusive estou deixando algumas sugestões de melhorias lá! Ótimo trabalho, parabéns!"</p>
         <div class="who"><div class="avatar" style="background:hsl(var(--chart-3))">JV</div><div><div class="name">João Vitor</div><div class="role">Cliente Minhas Finanças</div></div></div>
-      </div>
-      <div class="testi-card">
-        <div class="headline">Finalmente um só lugar pra tudo.</div>
-        <p class="body">"Tinha conta em três bancos e nunca sabia meu saldo real. Hoje é uma olhada só."</p>
-        <div class="who"><div class="avatar" style="background:hsl(var(--chart-6))">RS</div><div><div class="name">Rafael Souza</div><div class="role">Cliente Minhas Finanças</div></div></div>
       </div>
       <div class="testi-card">
         <img src="assets/olho-amarelo.svg" alt="" class="testi-badge">
@@ -1080,15 +1091,20 @@
         <div class="who"><div class="avatar" style="background:hsl(var(--chart-1))">AB</div><div><div class="name">Ana Beatriz</div><div class="role">Cliente Minhas Finanças</div></div></div>
       </div>
       <div class="testi-card">
-        <p class="body">"Cadastro minha renda de freelancer na mão e o resto conecta sozinho. Funciona bem pra quem não tem holerite fixo."</p>
-        <div class="who"><div class="avatar" style="background:hsl(var(--chart-4))">PH</div><div><div class="name">Pedro Henrique</div><div class="role">Cliente Minhas Finanças</div></div></div>
-      </div>
-      <div class="testi-card tspan-col">
         <img src="assets/olho-amarelo.svg" alt="" class="testi-badge">
         <div class="stars">★★★★★</div>
         <div class="headline">Categorização impressionantemente certeira</div>
         <p class="body">"Achei que ia ter que corrigir tudo na mão, mas a plataforma já acerta quase todas as categorias sozinha."</p>
         <div class="who"><div class="avatar" style="background:hsl(var(--chart-2))">FL</div><div><div class="name">Fernanda Lima</div><div class="role">Cliente Minhas Finanças</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="headline">Finalmente um só lugar pra tudo.</div>
+        <p class="body">"Tinha conta em três bancos e nunca sabia meu saldo real. Hoje é uma olhada só."</p>
+        <div class="who"><div class="avatar" style="background:hsl(var(--chart-6))">RS</div><div><div class="name">Rafael Souza</div><div class="role">Cliente Minhas Finanças</div></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="body">"Cadastro minha renda de freelancer na mão e o resto conecta sozinho. Funciona bem pra quem não tem holerite fixo."</p>
+        <div class="who"><div class="avatar" style="background:hsl(var(--chart-4))">PH</div><div><div class="name">Pedro Henrique</div><div class="role">Cliente Minhas Finanças</div></div></div>
       </div>
       <div class="testi-card">
         <p class="body">"Conectei meu Nubank, BTG e Inter em menos de cinco minutos. Não esperava que fosse tão rápido."</p>

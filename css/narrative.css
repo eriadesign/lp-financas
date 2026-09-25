@@ -27,6 +27,9 @@
 .narrative-panel {
   position: absolute;
   inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   opacity: 0;
   visibility: hidden;
   transform: translateY(14px) scale(0.98);
@@ -40,9 +43,11 @@
   z-index: 2;
 }
 
-.narrative-panel .frame { height: 100%; display: flex; flex-direction: column; }
-.narrative-panel .frame-body { flex: 1; min-height: 0; overflow: hidden; }
-.narrative-panel .scatter { height: 100%; }
+/* O frame abraça a réplica (sem sobra branca embaixo) e fica centrado na
+   área fixa; se a réplica for mais alta que a área, é recortada. */
+.narrative-panel .frame { max-height: 100%; display: flex; flex-direction: column; }
+.narrative-panel .frame-body { flex: 0 1 auto; min-height: 0; overflow: hidden; }
+.narrative-panel .scatter { height: 440px; }
 
 .narrative-items {
   display: flex;
@@ -67,15 +72,32 @@
   max-width: 420px;
 }
 
+/* Em uma coluna (tablet e celular), a troca por scroll não acompanha bem o
+   dedo: cada imagem aparece logo acima do seu texto. display: contents solta
+   painéis e textos no mesmo grid, e `order` os intercala (imagem, texto...). */
 @media (max-width: 900px) {
-  .narrative-scroll { grid-template-columns: 1fr; gap: 28px; }
-  .narrative-sticky { position: sticky; top: max(84px, calc(50vh - 220px)); }
-  .narrative-visual { height: 440px; }
-  .narrative-item { padding-block: 7vh; }
-  .narrative-item:first-child { padding-top: 0; }
+  .narrative-scroll { display: flex; flex-direction: column; gap: 0; }
+  .narrative-sticky, .narrative-visual, .narrative-items { display: contents; }
+  .narrative-panel {
+    position: static; inset: auto; width: 100%; min-width: 0;
+    opacity: 1; visibility: visible; transform: none; transition: none;
+  }
+  .narrative-panel .frame { max-height: none; }
+  .narrative-panel .frame-body { max-height: 420px; }
+  .narrative-panel .scatter { height: 360px; }
+  .narrative-item, .narrative-item:first-child, .narrative-item:last-child {
+    opacity: 1; padding: 20px 0 56px;
+  }
+  .narrative-item:last-child { padding-bottom: 0; }
+  .narrative-panel[data-panel="p1"] { order: 1; }  .narrative-item[data-target="p1"] { order: 2; }
+  .narrative-panel[data-panel="p2"] { order: 3; }  .narrative-item[data-target="p2"] { order: 4; }
+  .narrative-panel[data-panel="p3"] { order: 5; }  .narrative-item[data-target="p3"] { order: 6; }
+  .narrative-panel[data-panel="p4"] { order: 7; }  .narrative-item[data-target="p4"] { order: 8; }
+  .narrative-panel[data-panel="p5"] { order: 9; }  .narrative-item[data-target="p5"] { order: 10; }
 }
 
 @media (max-width: 560px) {
-  .narrative-visual { height: 340px; }
-  .narrative-sticky { top: max(84px, calc(50vh - 170px)); }
+  .narrative-panel .frame-body { max-height: 320px; }
+  .narrative-panel .scatter { height: 280px; }
+  .narrative-item, .narrative-item:first-child { padding: 18px 0 48px; }
 }

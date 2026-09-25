@@ -26,6 +26,10 @@
 .frame-bar .dot:nth-child(3) { background: hsl(142 60% 48%); }
 .frame-bar .frame-title {
   margin-left: 10px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: var(--font-ui);
   font-size: 12px;
   font-weight: 600;
@@ -60,4 +64,11 @@
 @media (max-width: 860px) {
   .scatter { height: 300px; }
   .scatter-card { width: 140px; padding: 10px 12px; }
+}
+@media (max-width: 560px) {
+  /* No celular, 4 fontes bastam para contar a história sem empilhar cards */
+  .scatter-card { width: 132px; padding: 9px 11px; }
+  .scatter-card:nth-child(4), .scatter-card:nth-child(5) { display: none; }
+  .scatter-card .scatter-source .sq { width: 22px; height: 22px; }
+  .scatter-card .num { font-size: 15px; margin-top: 6px; }
 }
