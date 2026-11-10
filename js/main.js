@@ -119,41 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   animateVisuals(document.querySelector('.tour-panel.active'));
 
-  // ---------- Contadores animados (prova social) ----------
-  function animateCount(el) {
-    const target = parseFloat(el.dataset.countTo);
-    if (Number.isNaN(target)) return;
-    const decimals = (el.dataset.countTo.split('.')[1] || '').length;
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
-    const duration = 1200;
-    const start = performance.now();
-    function tick(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const val = target * eased;
-      el.textContent = prefix + val.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  const countEls = document.querySelectorAll('[data-count-to]');
-  if (countEls.length) {
-    if ('IntersectionObserver' in window) {
-      const countIO = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            countIO.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.6 });
-      countEls.forEach((el) => countIO.observe(el));
-    } else {
-      countEls.forEach(animateCount);
-    }
-  }
-
   // ---------- Camadas do hero: tilt no dashboard e parallax nos cards ----------
   // Cada card flutuante é uma camada com profundidade própria (data-depth):
   // quanto maior, mais ele se desloca em relação ao dashboard.
