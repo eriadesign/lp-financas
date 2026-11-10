@@ -254,6 +254,14 @@
 .a-stat small { font-size: 10.5px; line-height: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--a-fg-3); }
 .a-stat b { font-size: 13px; line-height: 18px; font-weight: 600; }
 .a-cal-hint { margin-left: auto; font-size: 11.5px; color: var(--a-fg-3); }
+/* Calendário em tela cheia (tour): células e textos maiores, nota de lançamentos fora do período */
+.a-cal-card .a-cal-dow span { font-size: 12px; }
+.a-cal-card .a-cal > b { height: 64px; padding: 8px 10px; }
+.a-cal-card .a-cal > b i:first-child { font-size: 12px; }
+.a-cal-card .a-cal > b i:last-child { font-size: 12.5px; }
+.a-cal-card .a-stat b { font-size: 15px; }
+.a-cal-note { margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--a-fg-2); }
+.a-cal-note b { font-weight: 600; color: var(--a-fg); }
 
 /* ---------- Toggle segmentado (Despesas/Receitas) ---------- */
 .a-seg { display: inline-flex; padding: 2px; border-radius: var(--a-r-field); border: 1px solid var(--a-input); }
@@ -401,6 +409,25 @@
 .a-cc-plate .num .ic { width: 12px; height: 12px; }
 .a-cc-plate .who { margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; }
 .a-cc-plate .who img { margin-left: auto; height: 16px; width: auto; border-radius: 2px; }
+.a-cc-plate .who img.flag { margin-left: 0; height: 15px; border-radius: 3px; }
+.a-cc-plate .num b { font-weight: 700; letter-spacing: 1.5px; }
+
+/* Logo do banco conectado (o app mostra a marca da instituição, não as iniciais) */
+.a-bank-logo {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; box-shadow: 0 0 0 1px var(--a-border);
+}
+.a-bank-logo span {
+  width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #0B2A4A;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: -0.3px; line-height: 1; color: #0B2A4A;
+}
+.a-bank-logo.plate { width: 34px; height: 26px; border-radius: 7px; box-shadow: none; }
+.a-bank-logo.plate span { width: 18px; height: 18px; font-size: 7px; border-width: 1.2px; }
+.a-bank-logo.sync { width: 32px; height: 32px; }
+.a-acct .a-bank-logo { width: 24px; height: 24px; }
+.a-acct .a-bank-logo span { width: 18px; height: 18px; font-size: 7px; border-width: 1.2px; }
 .a-cc-plate .a-kebab { color: inherit; width: 28px; height: 28px; }
 .a-cc-head { margin-top: 20px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
 .a-cc-head .cyc { padding-bottom: 4px; font-size: 12px; color: var(--a-fg-2); }
@@ -651,6 +678,31 @@
 .a-bento-syncs { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .a-bento-syncs .a-sync { box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); }
 /* Bloco "Segurança Garantida" do onboarding (p-4 rounded-lg bg-success/10) */
+/* Controle de Orçamento (Perfil e Metas): % da renda por meta, com slider */
+.a-budget { padding: 24px 28px 20px; border-radius: 16px; border: 1px solid var(--a-border); background: var(--a-card); box-shadow: var(--a-shadow-xs); }
+.a-budget-hd { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.a-budget-hd h3 { font-family: var(--a-font-display); font-size: 24px; line-height: 1.2; font-weight: 700; }
+.a-budget-hd span { font-size: 13px; color: var(--a-fg-2); }
+.a-budget-row { margin-top: 22px; }
+.a-budget-top { display: flex; align-items: center; gap: 8px; }
+.a-budget-top b { font-size: 17px; font-weight: 700; }
+.a-budget-in { margin-left: auto; width: 68px; height: 34px; border-radius: 8px; border: 1px solid var(--a-border); background: var(--a-bg); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.a-budget-top .pct { font-size: 12px; color: var(--a-fg-2); }
+.a-budget-track { margin-top: 10px; height: 10px; border-radius: 999px; background: var(--a-muted); }
+.a-budget-track i { position: relative; display: block; height: 100%; border-radius: 999px; background: var(--c); transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.a-budget-track i::after { content: ''; position: absolute; top: 50%; right: -12px; width: 24px; height: 24px; margin-top: -12px; box-sizing: border-box; border-radius: 50%; border: 2px solid var(--c); background: #fff; }
+.a-budget-val { margin-top: 8px; text-align: right; font-size: 13px; color: var(--a-fg-2); }
+
+/* Linha de transação (lista mobile): logo, descrição, tag + conta · meta, valor */
+.a-txrow { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--a-border); background: var(--a-card); box-shadow: var(--a-shadow-xs); }
+.a-bank-logo.lg { width: 46px; height: 46px; }
+.a-bank-logo.lg span { width: 32px; height: 32px; font-size: 12px; border-width: 2px; }
+.a-txrow .tx { flex: 1; min-width: 0; overflow: hidden; }
+.a-txrow .tx b { display: block; font-size: 16px; line-height: 22px; font-weight: 600; white-space: nowrap; }
+.a-txrow .meta { margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--a-fg-2); white-space: nowrap; }
+.a-txrow .amt { flex-shrink: 0; font-size: 17px; font-weight: 700; color: var(--a-destructive); white-space: nowrap; }
+.a-txrow .kebab { width: 18px; height: 18px; flex-shrink: 0; color: var(--a-fg-2); }
+
 .a-secure { padding: 16px; border-radius: var(--a-r-field); border: 1px solid rgb(18 126 60 / 0.3); background: color-mix(in oklab, var(--a-success) 10%, var(--a-card)); }
 .a-secure h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--a-fg); }
 .a-secure h4 .ic { width: 16px; height: 16px; color: var(--a-success); }
