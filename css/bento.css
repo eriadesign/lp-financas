@@ -6,12 +6,17 @@
    com o mesmo recuo horizontal da réplica.
    ========================================================================== */
 
+/* Diagramação (3 colunas):
+   linha 1 → Open Finance (2 colunas) + Metas financeiras (alto, ao lado)
+   linha 2 → Cadastro manual · Resultado do mês · Cada gasto no lugar certo
+   linha 3 → Você controla suas conexões (faixa horizontal, largura total)
+   Linhas na altura do conteúdo: cada par/trio tem réplicas de altura parecida,
+   então nenhum tile fica com área vazia grande. */
 .bento-grid {
   --bento-pad: 24px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* Altura mínima por linha, mas cresce com o conteúdo: nada é recortado. */
-  grid-auto-rows: minmax(190px, auto);
+  grid-auto-rows: auto;
   gap: 20px;
 }
 
@@ -31,10 +36,16 @@
   transform: translateY(-3px);
 }
 
-.tile-large { grid-column: span 2; grid-row: span 2; }
-.tile-side-1 { grid-column: 3; grid-row: 1; }
-.tile-side-2 { grid-column: 3; grid-row: 2; }
-.tile-simple { grid-row: 3; }
+.tile-large { grid-column: span 2; }
+.tile-tall { grid-column: 3; }
+
+/* Faixa horizontal: réplica à esquerda, texto à direita */
+.tile-wide { grid-column: 1 / -1; flex-direction: row; }
+.tile-wide .bento-visual { flex: 0 0 50%; border-bottom: 0; border-right: 1px solid hsl(var(--border) / 0.7); }
+.tile-wide .bento-visual .app-fit { max-width: 440px; width: 100%; margin-inline: auto; }
+.tile-wide .bento-text { flex: 1; align-self: center; padding: var(--bento-pad) calc(var(--bento-pad) + 8px); }
+.tile-wide .bento-text h4 { font-size: 18px; }
+.tile-wide .bento-text p { font-size: 14px; max-width: 380px; }
 
 .bento-visual {
   flex: 1;
@@ -50,17 +61,19 @@
 .bento-text h4 { font-family: var(--font-ui); font-size: 15px; font-weight: 600; margin-bottom: 6px; }
 .bento-text p { font-size: 13px; color: hsl(var(--muted-foreground)); line-height: 1.55; }
 
+/* Tablet: 2 colunas — Open Finance inteiro, depois Metas + 3 tiles em 2×2 */
 @media (max-width: 900px) {
-  .bento-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
-  .tile-large { grid-column: span 2; grid-row: auto; }
-  .tile-side-1, .tile-side-2 { grid-column: span 1; grid-row: auto; }
-  .tile-simple { grid-row: auto; }
-  /* 3 tiles simples em 2 colunas: o último ocupa a linha inteira */
-  .tile-simple:last-child { grid-column: span 2; }
-  /* Tile em linha inteira: a réplica não passa do tamanho de um tile comum */
-  .tile-simple:last-child .app-fit { max-width: 400px; margin-inline: auto; }
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-large { grid-column: span 2; }
+  .tile-tall { grid-column: auto; }
 }
+/* Celular: 1 coluna, a faixa horizontal volta a empilhar */
 @media (max-width: 620px) {
   .bento-grid { --bento-pad: 20px; grid-template-columns: 1fr; gap: 16px; }
-  .tile-large, .tile-side-1, .tile-side-2, .tile-simple, .tile-simple:last-child { grid-column: auto; grid-row: auto; }
+  .tile-large, .tile-tall { grid-column: auto; }
+  .tile-wide { flex-direction: column; }
+  .tile-wide .bento-visual { flex-basis: auto; border-right: 0; border-bottom: 1px solid hsl(var(--border) / 0.7); }
+  .tile-wide .bento-text { padding: 20px var(--bento-pad) var(--bento-pad); }
+  .tile-wide .bento-text h4 { font-size: 15px; }
+  .tile-wide .bento-text p { font-size: 13px; }
 }

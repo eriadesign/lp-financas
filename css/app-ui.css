@@ -256,7 +256,7 @@
 .a-cal-hint { margin-left: auto; font-size: 11.5px; color: var(--a-fg-3); }
 /* Calendário em tela cheia (tour): células e textos maiores, nota de lançamentos fora do período */
 .a-cal-card .a-cal-dow span { font-size: 12px; }
-.a-cal-card .a-cal > b { height: 64px; padding: 8px 10px; }
+.a-cal-card .a-cal > b { height: 56px; padding: 8px 10px; }
 .a-cal-card .a-cal > b i:first-child { font-size: 12px; }
 .a-cal-card .a-cal > b i:last-child { font-size: 12.5px; }
 .a-cal-card .a-stat b { font-size: 15px; }
@@ -671,6 +671,10 @@
 /* Tour: painéis com altura fixa (data-h). O modal fica centrado na página e o
    estado vazio ocupa a altura que sobra, como na tela real. */
 .tour-panel .app-page { display: flex; flex-direction: column; }
+/* Tour no celular: os painéis dividem a mesma altura (a do mais alto), então
+   as telas longas mostram só o começo — 3 metas e 1 cartão. */
+.tour-panel .app.compact .a-goals > :nth-child(n+4),
+.tour-panel .app.compact .a-cards > :nth-child(n+2) { display: none; }
 .tour-panel .a-empty { flex: 1; justify-content: center; }
 .app-page.a-modal-stage { justify-content: center; }
 .a-modal-stage .a-dialog { width: 560px; }
