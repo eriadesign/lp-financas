@@ -3,9 +3,11 @@
    Painel fixo (sticky) troca de visual conforme o item de texto em foco.
    ========================================================================== */
 
-.narrative-intro { max-width: 780px; margin-bottom: clamp(48px, 7vw, 88px); }
+/* Título em duas frases, uma por linha no desktop: largura suficiente para a
+   segunda frase inteira; o texto de apoio mantém uma medida confortável. */
+.narrative-intro { max-width: 840px; margin-bottom: clamp(48px, 7vw, 88px); }
 .narrative-intro h2 { font-size: clamp(28px, 3.6vw, 42px); }
-.narrative-intro p { font-size: 16px; color: hsl(var(--muted-foreground)); margin-top: 14px; line-height: 1.6; }
+.narrative-intro p { max-width: 640px; font-size: 16px; color: hsl(var(--muted-foreground)); margin-top: 14px; line-height: 1.6; }
 
 .narrative-scroll {
   display: grid;
